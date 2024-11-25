@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">MiSalud</string>
+    <string name="correo_electronico">Correo electronico</string>
+    <string name="contrase_a">Contraseña</string>
+    <string name="ingresar">Ingresar</string>
+    <string name="registrar">Registrarse</string>
+    <string name="ingresar_ahora">Ingresar ahora</string>
+    <string name="registrarse_ahora">Registrarse ahora</string>
+    <string name="salir">Salir</string>
+    <string name="expedientes">Expedientes</string>
+    <string name="nombre">Nombres</string>
+    <string name="apellidos">Apellidos</string>
+    <string name="agregar_expediente">Agregar expediente</string>
+    <string name="edad">Edad</string>
+</resources>
