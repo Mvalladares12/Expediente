@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="5sp"
+    app:cardCornerRadius="15sp"
+    android:layout_margin="5sp">
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Nombre"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:id="@+id/list_nom"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/list_nom"
+            android:id="@+id/list_ape"
+            android:singleLine="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:text="Apellido"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/list_ape"
+            android:id="@+id/list_edad"
+            android:singleLine="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:text="Edad"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/list_ape"
+            android:id="@+id/list_gen"
+            android:singleLine="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:text="Genero"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/list_gen"
+            android:id="@+id/list_aler"
+            android:singleLine="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:text="Alergia"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/list_aler"
+            android:id="@+id/list_tsang"
+            android:singleLine="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:text="Tipo sanguineo"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/list_tsang"
+            android:id="@+id/list_fact"
+            android:singleLine="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:text="Factor RH"/>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

@@ -13,6 +13,13 @@
         android:id="@+id/rvVista"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="La lista está vacía!"
+        android:id="@+id/tvVacio"/>
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

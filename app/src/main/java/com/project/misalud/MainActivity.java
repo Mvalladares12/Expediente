@@ -40,7 +40,19 @@ public class MainActivity extends AppCompatActivity {
         btnSalir=findViewById(R.id.btnSalir);
         tvUsuario=findViewById(R.id.usuarioDetalles);
         fbUsuario=fbAuth.getCurrentUser();
+        btnCrear=findViewById(R.id.btnCrear);
 
+        btnCrear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Crear un Intent para redirigir a la SegundaActivity
+                Intent intent = new Intent(MainActivity.this, ExpAdmin.class);
+                startActivity(intent); // Iniciar la nueva actividad
+            }
+        });
+
+
+        //aqui se muestra el usuario que está registrado
         if (fbUsuario==null){
             Intent intent=new Intent(getApplicationContext(), Ingresar.class);
             startActivity(intent);
@@ -49,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
             tvUsuario.setText(fbUsuario.getEmail());
         }
 
+
+        //botón de cerrar sesión
         btnSalir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
 
 }
