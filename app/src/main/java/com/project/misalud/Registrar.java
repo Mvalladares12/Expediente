@@ -22,26 +22,20 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Registrar extends AppCompatActivity {
 
     TextInputEditText editTextCorreo, editTextContra;
     Button btnRegistrar;
     FirebaseAuth mAuth;
+    FirebaseFirestore firestore; // Firestore para almacenar los roles
     ProgressBar progreso;
     TextView tvIngresar;
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            Intent it=new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(it);
-            finish();
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,66 +47,86 @@ public class Registrar extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        mAuth=FirebaseAuth.getInstance();
-        editTextCorreo=findViewById(R.id.correo);
-        editTextContra=findViewById(R.id.contra);
-        btnRegistrar=findViewById(R.id.btnRegistrar);
-        progreso=findViewById(R.id.barraProgreso);
-        tvIngresar=findViewById(R.id.IngresarAhora);
-        tvIngresar.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                Intent it=new Intent(getApplicationContext(), Ingresar.class);
-                startActivity(it);
-                finish();
-            }
+
+        mAuth = FirebaseAuth.getInstance();
+        firestore = FirebaseFirestore.getInstance(); // Inicializar Firestore
+        editTextCorreo = findViewById(R.id.correo);
+        editTextContra = findViewById(R.id.contra);
+        btnRegistrar = findViewById(R.id.btnRegistrar);
+        progreso = findViewById(R.id.barraProgreso);
+        tvIngresar = findViewById(R.id.IngresarAhora);
+
+        tvIngresar.setOnClickListener(view -> {
+            Intent it = new Intent(getApplicationContext(), Ingresar.class);
+            startActivity(it);
+            finish();
         });
 
-        btnRegistrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                progreso.setVisibility(View.VISIBLE);
-                String correo, contra;
-                correo=String.valueOf(editTextCorreo.getText());
-                contra=String.valueOf(editTextContra.getText());
+        btnRegistrar.setOnClickListener(view -> {
+            progreso.setVisibility(View.VISIBLE);
+            String correo = String.valueOf(editTextCorreo.getText());
+            String contra = String.valueOf(editTextContra.getText());
 
-                //Revisar si los campos están vacíos
+            // Validar campos vacíos
+            if (TextUtils.isEmpty(correo) || TextUtils.isEmpty(contra)) {
+                Toast.makeText(Registrar.this, "Por favor complete todos los campos.", Toast.LENGTH_SHORT).show();
+                progreso.setVisibility(View.GONE);
+                return;
+            }
 
-                if (TextUtils.isEmpty(correo)){
-                    Toast.makeText(Registrar.this,"Ingrese un correo electronico", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+            // Registrar usuario con Firebase Authentication
+            mAuth.createUserWithEmailAndPassword(correo, contra)
+                    .addOnCompleteListener(task -> {
+                        progreso.setVisibility(View.GONE);
+                        if (task.isSuccessful()) {
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            if (user != null) {
+                                String userId = user.getUid();
 
-                if (TextUtils.isEmpty(contra)){
-                    Toast.makeText(Registrar.this,"Ingrese una contraseña", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+                                // Guardar información del usuario en Firestore
+                                Map<String, Object> userData = new HashMap<>();
+                                userData.put("email", correo);
+                                userData.put("role", "user"); // Rol predeterminado
 
-                mAuth.createUserWithEmailAndPassword(correo, contra)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                progreso.setVisibility(View.GONE);
-                                if (task.isSuccessful()) {
-                                    /* Sign in success, update UI with the signed-in user's information
-                                    Log.d(TAG, "createUserWithEmail:success");
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    updateUI(user);*/
-                                    Toast.makeText(Registrar.this, "Cuenta creada.",
-                                            Toast.LENGTH_SHORT).show();
-                                    Intent it=new Intent(getApplicationContext(), Ingresar.class);
-                                    startActivity(it);
-                                    finish();
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    //Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                    Toast.makeText(Registrar.this, "Registro fallido.",
-                                            Toast.LENGTH_SHORT).show();
-                                    //updateUI(null);
+                                firestore.collection("users").document(userId)
+                                        .set(userData)
+                                        .addOnCompleteListener(task1 -> {
+                                            if (task1.isSuccessful()) {
+                                                Toast.makeText(Registrar.this, "Cuenta creada con exito.",
+                                                        Toast.LENGTH_SHORT).show();
+                                                mAuth.signOut();
+                                                Intent it = new Intent(getApplicationContext(), Ingresar.class);
+                                                startActivity(it);
+                                                finish();
+                                            } else {
+                                                Toast.makeText(Registrar.this, "Error.",
+                                                        Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                            }
+                        } else {
+                            // Manejo de errores específicos
+                            if (task.getException() != null) {
+                                String errorCode = ((com.google.firebase.auth.FirebaseAuthException) task.getException()).getErrorCode();
+                                switch (errorCode) {
+                                    case "ERROR_EMAIL_ALREADY_IN_USE":
+                                        Toast.makeText(Registrar.this, "El correo ya está registrado.", Toast.LENGTH_SHORT).show();
+                                        break;
+                                    case "ERROR_WEAK_PASSWORD":
+                                        Toast.makeText(Registrar.this, "La contraseña debe tener al menos 6 caracteres.", Toast.LENGTH_SHORT).show();
+                                        break;
+                                    case "ERROR_INVALID_EMAIL":
+                                        Toast.makeText(Registrar.this, "El correo electrónico es inválido.", Toast.LENGTH_SHORT).show();
+                                        break;
+                                    default:
+                                        Toast.makeText(Registrar.this, "Error desconocido: " + task.getException().getMessage(),
+                                                Toast.LENGTH_SHORT).show();
+                                        break;
                                 }
                             }
-                        });
-            }
+                        }
+                    });
+
         });
     }
 }
