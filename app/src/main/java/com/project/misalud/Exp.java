@@ -1,7 +1,7 @@
 package com.project.misalud;
 
 public class Exp {
-    String llave,nombres, apellidos, genero, alergias, tSanguineo, factorRH, nombreRespons, numTelefonico, nombreMed;
+    String llave, idUser, nombres, apellidos, genero, alergias, tSanguineo, factorRH, nombreRespons, numTelefonico, correoMedico;
     int edad, edadRespons;
 
     public Exp(){
@@ -80,12 +80,12 @@ public class Exp {
         this.numTelefonico = numTelefonico;
     }
 
-    public String getNombreMed() {
-        return nombreMed;
+    public String getCorreoMedico() {
+        return correoMedico;
     }
 
-    public void setNombreMed(String nombreMed) {
-        this.nombreMed = nombreMed;
+    public void setCorreoMedico(String correoMedico) {
+        this.correoMedico = correoMedico;
     }
 
     public int getEdad() {
@@ -102,5 +102,13 @@ public class Exp {
 
     public void setEdadRespons(int edadRespons) {
         this.edadRespons = edadRespons;
+    }
+
+    public String getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
     }
 }

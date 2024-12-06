@@ -117,6 +117,7 @@ public class ExpAdmin extends AppCompatActivity {
 //                                    ProgressDialog dialog=new ProgressDialog(ExpAdmin.this);
 //                                    dialog.setMessage("afd");
                                     Exp exp=new Exp();
+                                    exp.setIdUser(fbAuth.getUid());
                                     exp.setNombres(etNombre.getText().toString());
                                     exp.setApellidos(etApellido.getText().toString());
                                     exp.setEdad(Integer.parseInt(etEdad.getText().toString()));
@@ -124,7 +125,7 @@ public class ExpAdmin extends AppCompatActivity {
                                     exp.setAlergias(etAlergias.getText().toString());
                                     exp.settSanguineo(etTSanguineo.getText().toString());
                                     exp.setFactorRH(etFactor.getText().toString());
-                                    exp.setNombreMed(fbUsuario.getEmail());
+                                    exp.setCorreoMedico(fbUsuario.getEmail());
                                     db.getReference().child("expedientes").push().setValue(exp).addOnSuccessListener(new OnSuccessListener<Void>() {
 
 
@@ -158,15 +159,25 @@ public class ExpAdmin extends AppCompatActivity {
 
         //hacer cambios en los registros
         RecyclerView recyclerView=findViewById(R.id.rvVista);
+        ArrayList<Exp> arrayList=new ArrayList<>();
+        ExpAdapter adapter=new ExpAdapter(ExpAdmin.this, arrayList);
 
         db.getReference().child("expedientes").addValueEventListener(new ValueEventListener() {
+        //db.getReference().child("expedientes").child("OCuVljeF_9d0WoHzKZo").child("Valladares Escobar").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<Exp> arrayList=new ArrayList<>();
-                for (DataSnapshot dataSnapshot:snapshot.getChildren()){
-                    Exp exp=dataSnapshot.getValue(Exp.class);
-                    Objects.requireNonNull(exp).setLlave(dataSnapshot.getKey());
-                    arrayList.add(exp);
+                //asdfasdfasdfasdf
+                String idDeseado = fbAuth.getUid();
+                for (DataSnapshot dataSnapshot:snapshot.getChildren()) {
+                        Exp exp = dataSnapshot.getValue(Exp.class);
+                    //modificar este if si no muestra nada la lista
+                        if (exp !=null && idDeseado.equals(exp.getIdUser())) {
+                            //Objects.requireNonNull(exp).setLlave(dataSnapshot.getKey());
+                            //asdfasdfasdfas
+                            exp.setLlave(dataSnapshot.getKey());
+                            arrayList.add(exp);
+                        }
                 }
 
                 if (arrayList.isEmpty()){
@@ -243,6 +254,7 @@ public class ExpAdmin extends AppCompatActivity {
 //                                    progressDialog.setMessage("afd");
 //                                    progressDialog.show();
                                             Exp exp1=new Exp();
+                                            exp1.setIdUser(fbAuth.getUid());
                                             exp1.setNombres(etNombre.getText().toString());
                                             exp1.setApellidos(etApellido.getText().toString());
                                             exp1.setEdad(Integer.parseInt(etEdad.getText().toString().trim()));
@@ -250,10 +262,9 @@ public class ExpAdmin extends AppCompatActivity {
                                             exp1.setAlergias(etAlergias.getText().toString());
                                             exp1.settSanguineo(etTSanguineo.getText().toString());
                                             exp1.setFactorRH(etFactor.getText().toString());
-                                            exp1.setNombreMed(fbUsuario.getEmail());
+                                            exp1.setCorreoMedico(fbUsuario.getEmail());
+                                            //exp1.setIdUser(fbAuth.getUid());
                                             db.getReference().child("expedientes").child(exp.getLlave()).setValue(exp1).addOnSuccessListener(new OnSuccessListener<Void>() {
-
-
                                                 @Override
                                                 public void onSuccess(Void unused) {
                                                     //progressDialog.dismiss();
