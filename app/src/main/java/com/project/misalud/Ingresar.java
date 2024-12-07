@@ -23,6 +23,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -32,7 +35,7 @@ public class Ingresar extends AppCompatActivity {
     Button btnIngresar;
     FirebaseAuth mAuth;
     ProgressBar progreso;
-    TextView tvRegistrar;
+    TextView tvRegistrar, tvRecuperar;
 
     @Override
     public void onStart() {
@@ -62,9 +65,16 @@ public class Ingresar extends AppCompatActivity {
         btnIngresar = findViewById(R.id.btnIngresar);
         progreso = findViewById(R.id.barraProgreso);
         tvRegistrar = findViewById(R.id.RegistrarAhora);
+        tvRecuperar = findViewById(R.id.recuperarContra);
 
         tvRegistrar.setOnClickListener(view -> {
             Intent it = new Intent(getApplicationContext(), Registrar.class);
+            startActivity(it);
+            finish();
+        });
+
+        tvRecuperar.setOnClickListener(view -> {
+            Intent it = new Intent(getApplicationContext(), RecuperarContra.class);
             startActivity(it);
             finish();
         });
@@ -93,29 +103,16 @@ public class Ingresar extends AppCompatActivity {
                         progreso.setVisibility(View.GONE);
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            if (user != null) {
+                            if (user != null && user.isEmailVerified()) {
+
                                 // Verificar el rol del usuario
                                 checkUserRole(user);
+                            }else{
+                                Toast.makeText(this, "Verificacion por correo necesaria.", Toast.LENGTH_SHORT).show();
                             }
+
                         } else {
-                            // Manejo de errores de autenticación
-                            if (task.getException() != null) {
-                                String errorCode = ((com.google.firebase.auth.FirebaseAuthException) task.getException()).getErrorCode();
-                                switch (errorCode) {
-                                    case "ERROR_INVALID_EMAIL":
-                                        Toast.makeText(Ingresar.this, "El correo electrónico no es válido.", Toast.LENGTH_SHORT).show();
-                                        break;
-                                    case "ERROR_USER_NOT_FOUND":
-                                        Toast.makeText(Ingresar.this, "Usuario no registrado.", Toast.LENGTH_SHORT).show();
-                                        break;
-                                    case "ERROR_WRONG_PASSWORD":
-                                        Toast.makeText(Ingresar.this, "Contraseña incorrecta.", Toast.LENGTH_SHORT).show();
-                                        break;
-                                    case "ERROR_USER_DISABLED":
-                                        Toast.makeText(Ingresar.this, "La cuenta ha sido deshabilitada.", Toast.LENGTH_SHORT).show();
-                                        break;
-                                }
-                            }
+                            Toast.makeText(this, "Credenciales incorrectas.", Toast.LENGTH_SHORT).show();
                         }
                     });
         });
