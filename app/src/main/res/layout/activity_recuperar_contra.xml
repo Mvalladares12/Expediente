@@ -8,17 +8,17 @@
     android:layout_margin="25dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Ingresar">
+    tools:context=".RecuperarContra">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/confi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/ingresar"
+        android:layout_marginBottom="25dp"
+        android:text="@string/recuperar_contraseña"
         android:textAlignment="center"
         android:textSize="25sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="25dp"/>
+        android:textStyle="bold" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -28,18 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/correo"
-            android:hint="@string/correo_electronico" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/contra"
-            android:hint="@string/contrase_a" />
+            android:hint="@string/Correo_recuperacion" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <ProgressBar
@@ -49,31 +38,21 @@
         android:visibility="gone"/>
 
     <Button
-        android:id="@+id/btnIngresar"
-        android:text="@string/ingresar"
+        android:id="@+id/btnConfirmar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"/>
+        android:layout_marginTop="25dp"
+        android:text="@string/confirmar" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/RegistrarAhora"
-        android:textSize="15sp"
-        android:text="@string/registrarse_ahora"
+        android:id="@+id/IngresarAhora"
+        android:text="@string/ingresar_ahora"
         android:textAlignment="center"
         android:textStyle="bold"
-        android:layout_marginTop="25dp"/>
-
-    <TextView
-        android:id="@+id/recuperarContra"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:text="@string/recuperar_contraseña"
-        android:textAlignment="center"
         android:textSize="15sp"
-        android:textStyle="bold" />
+        android:layout_marginTop="25dp"/>
     <!--
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"

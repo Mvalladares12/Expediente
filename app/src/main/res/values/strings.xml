@@ -12,4 +12,8 @@
     <string name="apellidos">Apellidos</string>
     <string name="agregar_expediente">Agregar expediente</string>
     <string name="edad">Edad</string>
+    <string name="recuperar_contraseña">Recuperar Contraseña</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="Correo_recuperacion">Correo Electronico</string>
+    <string name="recuperar_contra">Recuperar Contraseña</string>
 </resources>

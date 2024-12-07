@@ -3,6 +3,7 @@ package com.project.misalud;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -79,6 +80,7 @@ public class Registrar extends AppCompatActivity {
                     .addOnCompleteListener(task -> {
                         progreso.setVisibility(View.GONE);
                         if (task.isSuccessful()) {
+
                             FirebaseUser user = mAuth.getCurrentUser();
                             if (user != null) {
                                 String userId = user.getUid();
@@ -92,14 +94,23 @@ public class Registrar extends AppCompatActivity {
                                         .set(userData)
                                         .addOnCompleteListener(task1 -> {
                                             if (task1.isSuccessful()) {
-                                                Toast.makeText(Registrar.this, "Cuenta creada con exito.",
-                                                        Toast.LENGTH_SHORT).show();
-                                                mAuth.signOut();
-                                                Intent it = new Intent(getApplicationContext(), Ingresar.class);
-                                                startActivity(it);
-                                                finish();
+                                                // Enviar correo de verificación
+                                                user.sendEmailVerification()
+                                                        .addOnCompleteListener(task2 -> {
+                                                            if (task2.isSuccessful()) {
+                                                                Toast.makeText(Registrar.this, "Cuenta creada con éxito. Verifique su correo antes de iniciar sesión.",
+                                                                        Toast.LENGTH_SHORT).show();
+                                                                mAuth.signOut();
+                                                                Intent it = new Intent(getApplicationContext(), Ingresar.class);
+                                                                startActivity(it);
+                                                                finish();
+                                                            } else {
+                                                                Toast.makeText(Registrar.this, "No se pudo enviar el correo de verificación. Intente de nuevo.",
+                                                                        Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        });
                                             } else {
-                                                Toast.makeText(Registrar.this, "Error.",
+                                                Toast.makeText(Registrar.this, "Error al guardar los datos del usuario.",
                                                         Toast.LENGTH_SHORT).show();
                                             }
                                         });
