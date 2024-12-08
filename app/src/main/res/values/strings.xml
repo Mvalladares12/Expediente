@@ -16,4 +16,8 @@
     <string name="confirmar">Confirmar</string>
     <string name="Correo_recuperacion">Correo Electronico</string>
     <string name="recuperar_contra">Recuperar Contraseña</string>
+    <string name="juntaVi">Junta vigilancia</string>
+    <string name="profesion">Profesión</string>
+    <string name="numeroJun">Numero de junta</string>
+
 </resources>
