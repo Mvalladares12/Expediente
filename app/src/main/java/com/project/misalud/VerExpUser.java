@@ -97,7 +97,7 @@ public class VerExpUser extends AppCompatActivity {
                         //View view=LayoutInflater.from(ExpAdmin.this).inflate(R.layout.add_exp_dialog,null);
 
                         View view1= LayoutInflater.from(VerExpUser.this).inflate(R.layout.add_exp_dialog, null);
-                        TextInputLayout lyNombre, lyApellido, lyEdad, lyGenero, lyAlergias, lyTSanguineo, lyFactor;
+                        TextInputLayout lyNombre, lyApellido, lyEdad, lyGenero, lyAlergias, lyTSanguineo, lyFactor, lyCorreo;
                         lyNombre=view1.findViewById(R.id.lyNombre);
                         lyApellido=view1.findViewById(R.id.lyApellido);
                         lyEdad=view1.findViewById(R.id.lyEdad);
@@ -105,7 +105,17 @@ public class VerExpUser extends AppCompatActivity {
                         lyAlergias=view1.findViewById(R.id.lyAlergias);
                         lyTSanguineo=view1.findViewById(R.id.lyTSanguineo);
                         lyFactor=view1.findViewById(R.id.lyFactor);
+                        lyCorreo=view1.findViewById(R.id.lyCorreo);
 
+                        lyNombre.setHint("Nombre");
+                        lyApellido.setHint("Apellido");
+                        lyEdad.setHint("Edad");
+                        lyGenero.setHint("Genero");
+                        lyAlergias.setHint("Alergias");
+                        lyTSanguineo.setHint("Tipo sanguíneo");
+                        lyFactor.setHint("Factor RH");
+                        lyEdad.setHint("Edad");
+                        lyCorreo.setHint("Correo del paciente");
 
                         TextInputEditText etNombre, etApellido, etEdad, etGenero, etAlergias, etTSanguineo, etFactor, etCorreo;
                         etNombre=view1.findViewById(R.id.etNombre);
@@ -155,53 +165,17 @@ public class VerExpUser extends AppCompatActivity {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
 
-                                        /*if (Objects.requireNonNull(etNombre.getText()).toString().isEmpty()){
-                                            lyNombre.setError("Debe completar este campo!");
-                                        } else if (Objects.requireNonNull(etApellido.getText()).toString().isEmpty()) {
-                                            lyApellido.setError("Debe completar este campo!");
-                                        }else if (Objects.requireNonNull(etEdad.getText()).toString().isEmpty()) {
-                                            lyEdad.setError("Debe completar este campo!");
-                                        }else if (Objects.requireNonNull(etGenero.getText()).toString().isEmpty()) {
-                                            lyGenero.setError("Debe completar este campo!");
-                                        }else if (Objects.requireNonNull(etAlergias.getText()).toString().isEmpty()) {
-                                            lyAlergias.setError("Debe completar este campo!");
-                                        }else if (Objects.requireNonNull(etTSanguineo.getText()).toString().isEmpty()) {
-                                            lyTSanguineo.setError("Debe completar este campo!");
-                                        }else if (Objects.requireNonNull(etFactor.getText()).toString().isEmpty()) {
-                                            lyFactor.setError("Debe completar este campo!");
-                                        }else {*/
-                                            //Borrar en caso de que no funcione
-                                            /*dialog=crearProgressDialog();
-                                            dialog.show();
-                                            //descomentar en caso de que no funcion
-//                                    progressDialog.setMessage("afd");
-//                                    progressDialog.show();*/
                                             Exp exp1=new Exp();
-                                            /*exp1.setIdUser(fbAuth.getUid());
-                                            exp1.setNombres(etNombre.getText().toString());
-                                            exp1.setApellidos(etApellido.getText().toString());
-                                            exp1.setEdad(Integer.parseInt(etEdad.getText().toString().trim()));
-                                            exp1.setGenero(etGenero.getText().toString());
-                                            exp1.setAlergias(etAlergias.getText().toString());
-                                            exp1.settSanguineo(etTSanguineo.getText().toString());
-                                            exp1.setFactorRH(etFactor.getText().toString());
-                                            exp1.setCorreoMedico(fbUsuario.getEmail());
-                                            exp1.setCorreoPaciente(etCorreo.getText().toString());*/
-                                            //exp1.setIdUser(fbAuth.getUid());
+
                                             db.getReference().child("expedientes").child(exp.getLlave()).setValue(exp1).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void unused) {
-                                                    /*progressDialog.dismiss();
-                                                    dialog.dismiss();
-                                                    dialogInterface.dismiss();
-                                                    Toast.makeText(VerExpUser.this,"Editado exitosamente", Toast.LENGTH_SHORT).show();*/
+
                                                 }
                                             }).addOnFailureListener(new OnFailureListener() {
                                                 @Override
                                                 public void onFailure(@NonNull Exception e) {
-                                                    /*progressDialog.dismiss();
-                                                    dialog.dismiss();
-                                                    Toast.makeText(VerExpUser.this, "Error al guardar los datos", Toast.LENGTH_SHORT).show();*/
+
                                                 }
                                             });
                                         //}
@@ -212,26 +186,7 @@ public class VerExpUser extends AppCompatActivity {
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         dialogInterface.dismiss();
                                     }
-                                })
-                                /*.setNegativeButton("Borrar", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        progressDialog.setTitle("Borrando...");
-                                        progressDialog.show();
-                                        db.getReference().child("expedientes").child(exp.getLlave()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void unused) {
-                                                progressDialog.dismiss();
-                                                Toast.makeText(ExpAdmin.this, "Borrado exitosamente", Toast.LENGTH_SHORT).show();
-                                            }
-                                        }).addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                progressDialog.dismiss();
-                                            }
-                                        });
-                                    }
-                                })*/.create();
+                                }).create();
                         alertDialog.show();
                     }
                 });
@@ -241,15 +196,5 @@ public class VerExpUser extends AppCompatActivity {
 
             }
         });
-    }
-
-    private Dialog crearProgressDialog(){
-        AlertDialog.Builder builder=new AlertDialog.Builder(this);
-        builder.setCancelable(false);
-
-        ProgressBar pgb=new ProgressBar(this);
-        builder.setView(pgb);
-
-        return builder.create();
     }
 }

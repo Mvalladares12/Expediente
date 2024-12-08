@@ -113,6 +113,8 @@ public class Registrar extends AppCompatActivity {
                                 Map<String, Object> userData = new HashMap<>();
                                 userData.put("email", correo);
                                 userData.put("role", selectedOption); // Rol predeterminado
+                                userData.put("nombre", nombre);
+                                userData.put("apellido", apellidos);
 
                                 // Agregar especialización solo si el rol es "Doctor"
                                 if (selectedOption.equals("Doctor")) {
