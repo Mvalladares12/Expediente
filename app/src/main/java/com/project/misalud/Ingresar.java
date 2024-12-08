@@ -126,7 +126,7 @@ public class Ingresar extends AppCompatActivity {
                             startActivity(adminIntent);
                             finish();
                         } else if ("Usuario".equals(role)) {
-                            Intent userIntent = new Intent(Ingresar.this, MainActivity.class);
+                            Intent userIntent = new Intent(Ingresar.this, ExpUser.class);
                             startActivity(userIntent);
                             finish();
                         } else {

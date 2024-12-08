@@ -1,7 +1,7 @@
 package com.project.misalud;
 
 public class Exp {
-    String llave, idUser, nombres, apellidos, genero, alergias, tSanguineo, factorRH, nombreRespons, numTelefonico, correoMedico;
+    String llave, idUser, nombres, apellidos, genero, alergias, tSanguineo, factorRH, nombreRespons, numTelefonico, correoMedico, correoPaciente;
     int edad, edadRespons;
 
     public Exp(){
@@ -110,5 +110,13 @@ public class Exp {
 
     public void setIdUser(String idUser) {
         this.idUser = idUser;
+    }
+
+    public String getCorreoPaciente() {
+        return correoPaciente;
+    }
+
+    public void setCorreoPaciente(String correoPaciente) {
+        this.correoPaciente = correoPaciente;
     }
 }
