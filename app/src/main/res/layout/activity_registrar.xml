@@ -3,31 +3,53 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:layout_margin="25dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="25dp"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:context=".Registrar">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
         android:text="@string/registrar"
         android:textAlignment="center"
         android:textSize="25sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="25dp"/>
+        android:textStyle="bold" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/nombreR"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hint="@string/nombre" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/apellidosR"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hint="@string/apellidos" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/correo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/correo"
             android:hint="@string/correo_electronico" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -36,34 +58,86 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/contra"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/contra"
             android:hint="@string/contrase_a" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <ProgressBar
+        android:id="@+id/barraProgreso"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/barraProgreso"
-        android:visibility="gone"/>
+        android:visibility="gone" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Spinner
+            android:id="@+id/spinnerSeleccion"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="25dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/juntaVi"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/spinnerSeleccion"
+            android:hint="@string/juntaVi" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/profesion"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/spinnerSeleccion"
+            android:hint="@string/profesion" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/numeroJunta"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/spinnerSeleccion"
+            android:hint="@string/numeroJun" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btnRegistrar"
-        android:text="@string/registrar"
-        android:layout_marginTop="25dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="@string/registrar" />
 
     <TextView
+        android:id="@+id/IngresarAhora"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/IngresarAhora"
+        android:layout_marginTop="25dp"
         android:text="@string/ingresar_ahora"
         android:textAlignment="center"
-        android:textStyle="bold"
         android:textSize="15sp"
-        android:layout_marginTop="25dp"/>
+        android:textStyle="bold" />
+
     <!--
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"

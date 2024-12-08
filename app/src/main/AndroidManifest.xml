@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Material3.Light"
         tools:targetApi="31">
         <activity
+            android:name=".RecuperarContra"
+            android:exported="false" />
+        <activity
             android:name=".ExpAdmin"
             android:exported="false" />
         <activity
